@@ -136,7 +136,7 @@ describe('FormComponent', () => {
     component.onUpdate = false;
 
     const spyCreate = jest.spyOn(mockSessionApiService, 'create');
-    // @ts-ignore
+    // @ts-ignore : private method
     const spyOpen = jest.spyOn(component, 'exitPage');
 
     component.submit();
@@ -150,7 +150,7 @@ describe('FormComponent', () => {
     component.onUpdate = true;
 
     const spyUpdate = jest.spyOn(mockSessionApiService, 'update');
-    // @ts-ignore
+    // @ts-ignore : private method
     const spyOpen = jest.spyOn(component, 'exitPage');
 
     component.submit();
@@ -161,7 +161,7 @@ describe('FormComponent', () => {
 
   it('should call exitPage', () => {
     const spy = jest.spyOn(mockRouter, 'navigate');
-    // @ts-ignore
+    // @ts-ignore : private method
     component.exitPage('Test');
     expect(spy).toHaveBeenCalledWith(['sessions']);
     expect(mockMatSnackBar.open).toHaveBeenCalledWith('Test', 'Close', { duration: 3000 });

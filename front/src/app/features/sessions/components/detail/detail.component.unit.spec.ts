@@ -99,7 +99,7 @@ describe('DetailComponent', () => {
   });
 
   it('should call fetchSession on init', () => {
-    // @ts-ignore
+    // @ts-ignore : private method
     const fetchSessionSpy = jest.spyOn(component, 'fetchSession');
     component.ngOnInit();
     expect(fetchSessionSpy).toHaveBeenCalled();
@@ -117,7 +117,7 @@ describe('DetailComponent', () => {
 
   it('should call participate and fetchSession when participate is called', () => {
     mockSessionApiService.participate.mockReturnValue(of(void 0));
-    // @ts-ignore
+    // @ts-ignore : private method
     const fetchSessionSpy = jest.spyOn(component, 'fetchSession');
     component.participate();
     expect(mockSessionApiService.participate).toHaveBeenCalledWith('123', '456');
@@ -126,7 +126,7 @@ describe('DetailComponent', () => {
 
   it('should call unParticipate and fetchSession when unParticipate is called', () => {
     mockSessionApiService.unParticipate.mockReturnValue(of(void 0));
-    // @ts-ignore
+    // @ts-ignore : private method
     const fetchSessionSpy = jest.spyOn(component, 'fetchSession');
     component.unParticipate();
     expect(mockSessionApiService.unParticipate).toHaveBeenCalledWith('123', '456');

@@ -16,21 +16,16 @@ import { AuthService } from '../../services/auth.service';
 
 import { LoginComponent } from './login.component';
 
-export class MockRouter {
-  get url(): string {
-      return '';
-  }
-  navigate(): Promise<boolean> {
-      return new Promise<boolean>((resolve, _) => resolve(true));
-  }
-}
-
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let sessionService: SessionService;
   let authService: AuthService;
   let router: Router;
+
+  const mockRouter = {
+    navigate: jest.fn().mockImplementation(async () => true)  
+} as unknown as jest.Mocked<any>
 
   const sessionInfos: SessionInformation = { username: "", firstName: "", lastName: "", id: 0, admin: false, token: "", type: "" };
   const sessionInfos$ = of(sessionInfos);
@@ -41,7 +36,7 @@ describe('LoginComponent', () => {
       providers: [
         SessionService,
         AuthService,
-        { provide: Router, useClass: MockRouter },
+        { provide: Router, useValue: mockRouter },
       ],
       imports: [
         RouterTestingModule,
@@ -51,7 +46,8 @@ describe('LoginComponent', () => {
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,
-        ReactiveFormsModule]
+        ReactiveFormsModule
+      ]
     })
       .compileComponents();
     fixture = TestBed.createComponent(LoginComponent);

@@ -44,7 +44,6 @@ describe('AuthService', () => {
 
   it('should make a POST request to log in a user', () => {
     const loginResquest: LoginRequest = {email: '', password: ''};
-    // @ts-ignore
     const expectedResponse: SessionInformation =  {
         admin: false,
         firstName: '',
