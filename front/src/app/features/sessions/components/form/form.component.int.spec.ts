@@ -134,7 +134,7 @@ describe('FormComponent', () => {
         const createSessionReq = controller.expectOne(pathServiceSession);
         createSessionReq.flush(session);
 
-        expect(spyCreate).toHaveBeenCalledTimes(1);
+        expect(spyCreate).toHaveBeenNthCalledWith(1, component.sessionForm?.value);
     });
 
     it('should update a session', () => {
@@ -152,7 +152,7 @@ describe('FormComponent', () => {
         const updateSessionReq = controller.expectOne(`${pathServiceSession}/1`);
         updateSessionReq.flush(session);
 
-        expect(spyUpdate).toHaveBeenCalledTimes(1);
+        expect(spyUpdate).toHaveBeenNthCalledWith(1, "1", component.sessionForm?.value);
 
     });
 
