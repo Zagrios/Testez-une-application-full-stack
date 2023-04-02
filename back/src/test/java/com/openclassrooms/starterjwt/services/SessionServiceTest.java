@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -50,7 +52,7 @@ class SessionServiceTest {
                 .password("azerty").build();
     }
 
-    @BeforeEach //TODO pas intancier à la main
+    @BeforeEach
     public void setUp() {
         sessionService = new SessionService(sessionRepository, userRepository);
     }
@@ -61,7 +63,7 @@ class SessionServiceTest {
         when(sessionRepository.save(any(Session.class))).thenReturn(session);
 
         Session result = sessionService.create(session);
-        assertThat(result).isEqualTo(session); // TODO vérifier que equal vérif tout
+        assertThat(result).usingRecursiveComparison().isEqualTo(session);
     }
 
     @Test
@@ -117,7 +119,8 @@ class SessionServiceTest {
 
         this.sessionService.participate(sessionId, userId);
         verify(this.sessionRepository, times(1)).save(session);
-        // TODO vérifier que la session contient bien l'utilisateur
+
+        assertTrue(session.getUsers().contains(user));
     }
 
     @Test
@@ -144,7 +147,8 @@ class SessionServiceTest {
 
         sessionService.noLongerParticipate(sessionId, userId);
         verify(sessionRepository, times(1)).save(session);
-        // TODO vérifier que la session contient plus bien l'utilisateur
+
+        assertFalse(session.getUsers().contains(user));
     }
 
     @Test
