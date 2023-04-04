@@ -1,7 +1,8 @@
 # Yoga App !
 
+use jdk v11
 
 For launch and generate the jacoco code coverage:
 > mvn clean test
 
-GL
+find code coverage here : `./target/site/jacoco/index.html`
